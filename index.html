@@ -236,15 +236,15 @@
 
       class CacheAleatorio {
         constructor(itens) {
-          this.itens = Array.from(itens);
+          this.itens = itens.slice();
           this.usados = [];
           this.tamanho = this.itens.length;
 
-          this.embaralharArray(this.itens);
+          this.embaralhar(this.itens);
         }
 
         // https://stackoverflow.com/a/12646864
-        embaralharArray(array) {
+        embaralhar(array) {
           for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
@@ -256,7 +256,7 @@
             this.itens = this.usados;
             this.usados = [];
 
-            this.embaralharArray(this.itens);
+            this.embaralhar(this.itens);
           }
 
           const item = this.itens.shift();
