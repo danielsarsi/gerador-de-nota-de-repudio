@@ -12,7 +12,10 @@
       name="description"
       content="Gere uma nota de repúdio democrática para parecer que faz algo."
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Bitter&family=Heebo:wght@400;900&display=swap"
       rel="stylesheet"
@@ -88,7 +91,7 @@
     </style>
     <script>
       // sinônimos de "repúdio"
-      const inicios = [
+      const _inicios = [
         "abomino",
         "desprezo",
         "rechaço",
@@ -98,7 +101,7 @@
       ];
 
       // advérbios que significam ímpeto, enérgicos
-      const adverbios = [
+      const _adverbios = [
         "veementemente",
         "fervorosamente",
         "totalmente",
@@ -112,7 +115,7 @@
       ];
 
       // algo do momento que foi repudiado, como deveria ser
-      const repudios = [
+      const _repudios = [
         [
           "os ataques à Democracia brasileira",
           "a Democracia é estabelecida pela Constituição de 1988 e é, portanto, inegociável",
@@ -152,7 +155,7 @@
       ];
 
       // frases de efeito
-      const efeitos = [
+      const _efeitos = [
         "as instituições estão e continuarão funcionando normalmente",
         "não nos calarão",
         "o poder emana do povo",
@@ -171,11 +174,44 @@
         "lutaremos incessantemente contra os retrocessos",
       ];
 
-      const pontuacoes = [".", "!"];
+      const _pontuacoes = [".", "!"];
 
-      function aleatorio(arr) {
-        return arr[(arr.length * Math.random()) | 0];
+      class CacheAleatorio {
+        constructor (itens) {
+          this.itens = Array.from(itens)
+          this.usados = []
+          this.tamanho = this.itens.length
+
+          this.embaralharArray(this.itens)
+        }
+
+        // https://stackoverflow.com/a/12646864
+        embaralharArray (array) {
+          for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+          }
+        }
+
+        aleatorio () {
+          if (this.usados.length === this.tamanho) {
+            this.itens = this.usados
+            this.usados = []
+
+            this.embaralharArray(this.itens)
+          }
+
+          const item = this.itens.shift()
+          this.usados.push(item)
+          return item
+        }
       }
+
+      const inicios = new CacheAleatorio(_inicios)
+      const adverbios = new CacheAleatorio(_adverbios)
+      const repudios = new CacheAleatorio(_repudios)
+      const efeitos = new CacheAleatorio(_efeitos)
+      const pontuacoes = new CacheAleatorio(_pontuacoes)
 
       function primeiraLetraMaiuscula(str) {
         return `${str[0].toUpperCase()}${str.substr(1)}`;
@@ -184,15 +220,15 @@
       function gerar() {
         const elemento = document.querySelector("#frase");
 
-        const inicio = primeiraLetraMaiuscula(aleatorio(inicios));
-        const adverbio = aleatorio(adverbios);
+        const inicio = primeiraLetraMaiuscula(inicios.aleatorio());
+        const adverbio = adverbios.aleatorio();
 
-        const dupla = aleatorio(repudios);
+        const dupla = repudios.aleatorio();
         const repudiado = dupla[0];
         const sonho = primeiraLetraMaiuscula(dupla[1]);
 
-        const efeito = primeiraLetraMaiuscula(aleatorio(efeitos));
-        const pontuacao = aleatorio(pontuacoes);
+        const efeito = primeiraLetraMaiuscula(efeitos.aleatorio());
+        const pontuacao = pontuacoes.aleatorio();
 
         const frase = `${inicio} ${adverbio} ${repudiado}. ${sonho}. ${efeito}${pontuacao}`;
         elemento.innerHTML = frase;
