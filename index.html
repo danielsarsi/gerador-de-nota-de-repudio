@@ -1,0 +1,229 @@
+<!--
+  Queria agradecer a todos os políticos da esquerda brasileira que me inspiraram
+  ao fazer esse projeto.
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Nota de Repúdio</title>
+    <meta
+      name="description"
+      content="Gere uma nota de repúdio democrática para parecer que faz algo."
+    />
+    <link rel="stylesheet" href="normalize.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter&family=Heebo:wght@400;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Heebo", sans-serif;
+        margin: 0;
+        height: 100vh;
+      }
+      main {
+        display: grid;
+        align-items: center;
+        grid-template-rows: auto 1fr auto auto;
+        height: 100%;
+      }
+      h1 {
+        padding-top: 0.25rem;
+        padding-bottom: 0.5rem;
+        font-size: 1em;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px solid black;
+        text-align: center;
+        font-weight: 900;
+      }
+      #frase {
+        justify-self: center;
+        max-width: 32rem;
+        margin: 3rem 1rem;
+        padding-left: 4rem;
+        padding-right: 1rem;
+        font-family: "Bitter", serif;
+        font-size: 2em;
+        line-height: 1.5;
+        position: relative;
+        hyphens: auto;
+      }
+      #frase::before {
+        content: "\“";
+        position: absolute;
+        font-size: 4em;
+        color: #cccccc;
+        top: -2.5rem;
+        left: 0;
+      }
+      #nova {
+        justify-self: center;
+        background: none;
+        font-family: inherit;
+        font-size: 100%;
+        border: 1px solid #000000;
+        padding: 1rem 1.5rem;
+        text-transform: uppercase;
+        font-weight: 900;
+        border-radius: 0.125rem;
+        cursor: pointer;
+        margin: 1rem auto;
+      }
+      a:link,
+      a:visited {
+        color: inherit;
+      }
+      footer {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        font-size: 0.8em;
+        text-transform: uppercase;
+        color: #737373;
+        text-align: center;
+      }
+    </style>
+    <script>
+      // sinônimos de "repúdio"
+      const inicios = [
+        "abomino",
+        "desprezo",
+        "rechaço",
+        "repudio",
+        "rejeito",
+        "desdenho",
+      ];
+
+      // advérbios que significam ímpeto, enérgicos
+      const adverbios = [
+        "veementemente",
+        "fervorosamente",
+        "totalmente",
+        "energicamente",
+        "absolutamente",
+        "como um todo",
+        "inteiramente",
+        "integralmente",
+        "plenamente",
+        "completamente",
+      ];
+
+      // algo do momento que foi repudiado, como deveria ser
+      const repudios = [
+        [
+          "os ataques à Democracia brasileira",
+          "a Democracia é estabelecida pela Constituição de 1988 e é, portanto, inegociável",
+        ],
+        [
+          "o fechamento do Congresso e Supremo Tribunal Federal (STF)",
+          "a República é composta, além do Executivo, pelo Legislativo e Judiciário",
+        ],
+        [
+          "a retirada dos diretos trabalhistas",
+          "devemos proteger os trabalhadores e garantir melhores condições de trabalho",
+        ],
+        [
+          "o fim do isolamento social",
+          "o isolamento é a única forma de conter o avanço do novo coronavírus",
+        ],
+        [
+          "as declarações do Presidente da República",
+          "reside uma imensa responsabilidade neste cargo, independente de quem o ocupa",
+        ],
+        [
+          "as falas proferidas pelo deputado",
+          "o respeito e a civilidade devem preponderar em qualquer embate de ideias",
+        ],
+        [
+          "a ação da polícia militar",
+          "a polícia deve estar do lado da população, em defesa pela vida",
+        ],
+        [
+          "o projeto de Lei aprovado hoje",
+          "o Legislativo deve trabalhar para responder aos interesses da população",
+        ],
+        [
+          "o atraso na tramitação da proposta",
+          "o processo deve seguir as normas da casa, como também ser ágil e efetivo",
+        ],
+      ];
+
+      // frases de efeito
+      const efeitos = [
+        "as instituições estão e continuarão funcionando normalmente",
+        "não nos calarão",
+        "o poder emana do povo",
+        "seremos mais fortes diante destes ataques",
+        "o estado democrático de direito resistirá",
+        "trabalharemos incessantemente contra o obscurantismo",
+        "lutaremos pelos direitos do povo brasileiro",
+        "ditadura nunca mais",
+        "a civilização vencerá a barbárie",
+        "eles não passarão",
+        "é hora de salvar o povo brasileiro",
+        "não seremos responsáveis pela tragédia dessas ações",
+        "é preciso calma e responsabilidade nesse momento",
+        "é ultrajante que precisemos defender o óbvio",
+        "não deixaremos os interesses do mercado vencer",
+        "lutaremos incessantemente contra os retrocessos",
+      ];
+
+      const pontuacoes = [".", "!"];
+
+      function aleatorio(arr) {
+        return arr[(arr.length * Math.random()) | 0];
+      }
+
+      function primeiraLetraMaiuscula(str) {
+        return `${str[0].toUpperCase()}${str.substr(1)}`;
+      }
+
+      function gerar() {
+        const elemento = document.querySelector("#frase");
+
+        const inicio = primeiraLetraMaiuscula(aleatorio(inicios));
+        const adverbio = aleatorio(adverbios);
+
+        const dupla = aleatorio(repudios);
+        const repudiado = dupla[0];
+        const sonho = primeiraLetraMaiuscula(dupla[1]);
+
+        const efeito = primeiraLetraMaiuscula(aleatorio(efeitos));
+        const pontuacao = aleatorio(pontuacoes);
+
+        const frase = `${inicio} ${adverbio} ${repudiado}. ${sonho}. ${efeito}${pontuacao}`;
+        elemento.innerHTML = frase;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        gerar();
+
+        const botao = document.querySelector("#nova");
+        botao.addEventListener("click", function () {
+          gerar();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Gerador de Nota de Repúdio</h1>
+      </header>
+      <p id="frase"></p>
+      <button id="nova" type="button">Novo repúdio</button>
+      <footer>
+        <a
+          rel="noopener noreferrer"
+          target="_blank"
+          href="http://twitter.com/danielsarsi"
+          >@danielsarsi</a
+        >
+        ajudando a democracia brasileira desde 2020
+      </footer>
+    </main>
+  </body>
+</html>
