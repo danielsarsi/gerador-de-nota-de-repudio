@@ -1,6 +1,8 @@
 <!--
   Queria agradecer a todos os políticos da esquerda brasileira que me inspiraram
   ao fazer esse projeto.
+
+  https://github.com/danielsarsi/gerador-de-nota-de-repudio
 -->
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -25,6 +27,8 @@
         font-family: "Heebo", sans-serif;
         margin: 0;
         height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       main {
         display: grid;
@@ -74,6 +78,13 @@
         border-radius: 0.125rem;
         cursor: pointer;
         margin: 1rem auto;
+        transition: transform 0.2s ease;
+      }
+      #nova:active {
+        transform: scale(0.95);
+      }
+      noscript {
+        color: rgb(255, 0, 85);
       }
       a:link,
       a:visited {
