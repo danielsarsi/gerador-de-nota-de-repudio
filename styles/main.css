@@ -1,0 +1,84 @@
+body {
+  font-family: "Heebo", sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.main {
+  display: grid;
+  align-items: center;
+  grid-template-rows: auto 1fr auto auto 3rem;
+  min-height: 100vh;
+}
+
+.title {
+  padding-top: 0.25rem;
+  padding-bottom: 0.5rem;
+  font-size: 1em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid black;
+  text-align: center;
+  font-weight: 900;
+}
+
+.repudiation {
+  justify-self: center;
+  max-width: 32rem;
+  margin: 3rem 1rem;
+  padding-left: 4rem;
+  padding-right: 1rem;
+  font-family: "Bitter", serif;
+  font-size: 2em;
+  line-height: 1.5;
+  position: relative;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+
+.repudiation::before {
+  content: "\“";
+  position: absolute;
+  font-size: 4em;
+  color: #cccccc;
+  top: -2.5rem;
+  left: 0;
+}
+
+.button {
+  justify-self: center;
+  background: none;
+  font-family: inherit;
+  font-size: 100%;
+  border: 1px solid #000000;
+  padding: 1rem 1.5rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  border-radius: 0.125rem;
+  margin: 1rem auto;
+  transition: transform 0.2s ease;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+noscript {
+  color: rgb(255, 0, 85);
+}
+
+link:link,
+link:visited {
+  color: inherit;
+}
+
+.footer {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  color: #737373;
+  text-align: center;
+}
