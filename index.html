@@ -137,7 +137,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #536471;
     }
 
     .action-button {
@@ -151,6 +150,7 @@
       background: transparent;
       border: none;
       font-size: 0.875rem;
+      color: #536471;
     }
 
     .action-button:hover {
@@ -261,6 +261,54 @@
 
     footer a:hover {
       text-decoration: underline;
+    }
+
+    /* Modo escuro */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #000;
+        color: #e7e9ea;
+      }
+
+      .tweet-card {
+        background: #16181c;
+        border: 1px solid #2f3336;
+      }
+
+      .avatar {
+        background: #e7e9ea;
+        color: #000;
+      }
+
+      .user-handle {
+        color: #71767b;
+      }
+
+      .tweet-time {
+        color: #71767b;
+        border-bottom: 1px solid #2f3336;
+      }
+
+      .tweet-actions {
+        color: #71767b;
+      }
+
+      #nova {
+        background: #e7e9ea;
+        color: #000;
+      }
+
+      #nova:hover {
+        background: #d6d9db;
+      }
+
+      footer {
+        color: #71767b;
+      }
+
+      footer a {
+        color: #e7e9ea;
+      }
     }
   </style>
   <script>
