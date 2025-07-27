@@ -6,339 +6,714 @@
 -->
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gerador de Nota de Repúdio</title>
-    <meta
-      name="description"
-      content="Gere uma nota de repúdio democrática para parecer que faz algo."
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bitter&family=Heebo:wght@400;900&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Heebo", sans-serif;
-        margin: 0;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      main {
-        display: grid;
-        align-items: center;
-        grid-template-rows: auto 1fr auto auto 3rem;
-        min-height: 100vh;
-      }
-      h1 {
-        padding-top: 0.25rem;
-        padding-bottom: 0.5rem;
-        font-size: 1em;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border-bottom: 1px solid black;
-        text-align: center;
-        font-weight: 900;
-      }
-      #frase {
-        justify-self: center;
-        max-width: 32rem;
-        margin: 3rem 1rem;
-        padding-left: 4rem;
-        padding-right: 1rem;
-        font-family: "Bitter", serif;
-        font-size: 2em;
-        line-height: 1.5;
-        position: relative;
-        -webkit-hyphens: auto;
-        -ms-hyphens: auto;
-        hyphens: auto;
-      }
-      #frase::before {
-        content: "\“";
-        position: absolute;
-        font-size: 4em;
-        color: #cccccc;
-        top: -2.5rem;
-        left: 0;
-      }
-      #nova {
-        justify-self: center;
-        background: none;
-        font-family: inherit;
-        font-size: 100%;
-        border: 1px solid #000000;
-        padding: 1rem 1.5rem;
-        text-transform: uppercase;
-        font-weight: 900;
-        border-radius: 0.125rem;
-        margin: 1rem auto;
-        transition: transform 0.2s ease;
-      }
-      #nova:active {
-        transform: scale(0.95);
-      }
-      noscript {
-        color: rgb(255, 0, 85);
-      }
-      a:link,
-      a:visited {
-        color: inherit;
-      }
-      footer {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        font-size: 0.8em;
-        text-transform: uppercase;
-        color: #737373;
-        text-align: center;
-      }
-    </style>
-    <script>
-      // sinônimos de "repúdio"
-      const _inicios = [
-        "abomino",
-        "desprezo",
-        "rechaço",
-        "repudio",
-        "rejeito",
-        "desdenho",
-        "deprecio",
-        "condeno",
-        "critico",
-      ];
 
-      // advérbios que significam ímpeto, enérgicos
-      const _adverbios = [
-        "veementemente",
-        "fervorosamente",
-        "totalmente",
-        "energicamente",
-        "absolutamente",
-        "como um todo",
-        "inteiramente",
-        "integralmente",
-        "plenamente",
-        "completamente",
-        "muito",
-        "irrestritamente",
-        "definitivamente",
-        "terminantemente",
-        "categoricamente",
-        "indiscutivelmente",
-        "taxativamente",
-        "rigorosamente",
-        "incondicionalmente",
-        "permanentemente",
-      ];
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Nota de Repúdio</title>
+  <meta name="description" content="Gere uma nota de repúdio democrática para parecer que faz algo." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-      // algo do momento que foi repudiado, como deveria ser
-      const _repudios = [
-        [
-          "os ataques à Democracia brasileira",
-          "a Democracia é estabelecida pela Constituição de 1988 e é, portanto, inegociável",
-        ],
-        [
-          "o fechamento do Congresso e Supremo Tribunal Federal (STF)",
-          "a República é composta, além do Executivo, pelo Legislativo e Judiciário",
-        ],
-        [
-          "a retirada dos diretos trabalhistas",
-          "devemos proteger os trabalhadores e garantir melhores condições de trabalho",
-        ],
-        [
-          "o fim do isolamento social",
-          "o isolamento é a única forma de conter o avanço do novo coronavírus",
-        ],
-        [
-          "as declarações do Presidente da República",
-          "reside uma imensa responsabilidade neste cargo, independente de quem o ocupa",
-        ],
-        [
-          "as falas proferidas pelo deputado",
-          "o respeito e a civilidade devem preponderar em qualquer embate de ideias",
-        ],
-        [
-          "a ação da polícia militar",
-          "a polícia deve estar do lado da população, em defesa pela vida",
-        ],
-        [
-          "o projeto de Lei aprovado hoje",
-          "o Legislativo deve trabalhar para responder aos interesses da população",
-        ],
-        [
-          "o atraso na tramitação da proposta",
-          "o processo deve seguir as normas da casa, como também ser ágil e efetivo",
-        ],
-        [
-          "o episódio de violência noticiado",
-          "a violência não é o caminho a ser tomado diante dos avanços civilizatórios",
-        ],
-        [
-          "a destruição do meio ambiente",
-          "precisamos conviver harmoniosamente com a natureza e respeitá-la",
-        ],
-        [
-          "a decisão política do juiz",
-          "o Judiciário deve se isentar da política como um poder independente",
-        ],
-        [
-          "o ódio e a maldade",
-          "o amor e a felicidade é o que faz nós, seres humanos, sermos cada vez mais humanos",
-        ],
-        [
-          "o autoritarismo e a intolerância",
-          "a Democracia e respeito às diferenças é consumada pela Constituição",
-        ],
-        [
-          "a censura de ideias",
-          "a liberdade de expressão, garantida pela Constituição, se opõe à opressão",
-        ],
-        [
-          "as ações de teor religioso do Executivo",
-          "o Estado deve permanecer laico e garantir a liberdade religiosa",
-        ],
-        [
-          "os alagamentos causados pela chuva",
-          "o plano diretor de uma cidade deve priorizar de escoamento de água em locais de grande concentração",
-        ],
-        [
-          "as falas do Presidente da República no vídeo da reunião ministerial",
-          "o líder do Executivo deve sustentar o decoro pertinente ao cargo",
-        ],
-        [
-          "as palavras de baixo calão proferidas pelos membros do Executivo",
-          "a comunicação humana deve se dar de forma respeitosa, considerando as regras de convivência",
-        ],
-        [
-          "as tentativas de interferência na Polícia Federal",
-          "a instituição em questão necessita de autonomia para atingir seus objetivos constitucionais",
-        ],
-      ];
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #f7f9fa;
+      color: #0f1419;
+    }
 
-      // frases de efeito
-      const _efeitos = [
-        "as instituições estão e continuarão funcionando normalmente",
-        "não nos calarão",
-        "o poder emana do povo",
-        "seremos mais fortes diante destes ataques",
-        "o estado democrático de direito resistirá",
-        "trabalharemos incessantemente contra o obscurantismo",
-        "lutaremos pelos direitos do povo brasileiro",
-        "ditadura nunca mais",
-        "a civilização vencerá a barbárie",
-        "eles não passarão",
-        "é hora de salvar o povo brasileiro",
-        "não seremos responsáveis pela tragédia dessas ações",
-        "é preciso calma e responsabilidade nesse momento",
-        "é ultrajante que precisemos defender o óbvio",
-        "não deixaremos os interesses do mercado vencer",
-        "lutaremos incessantemente contra os retrocessos",
-        "o bom senso sempre prevalecerá",
-        "estaremos juntos pela Democracia",
-        "a democracia e os brasileiros que querem paz vencerão",
-        "que a Justiça seja célere para punir",
-        "só quer o silêncio quem não quer a democracia",
-        "não há dignidade na ausência de liberdade",
-      ];
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
 
-      const _pontuacoes = [".", "!"];
+    header {
+      display: none;
+    }
 
-      class CacheAleatorio {
-        constructor(itens) {
-          this.itens = itens.slice();
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .tweet-card {
+      background: white;
+      border: 1px solid #e1e8ed;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      padding: 1rem;
+      margin-top: auto;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .tweet-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-right: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .user-info {
+      flex: 1;
+    }
+
+    .user-name {
+      font-weight: 700;
+      font-size: 0.9375rem;
+      line-height: 1.2;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .verified {
+      width: 20px;
+      height: 20px;
+      background: rgb(29, 155, 240);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .verified::after {
+      content: "✓";
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+
+    .user-handle {
+      color: #536471;
+      font-size: 0.9375rem;
+      font-weight: 400;
+    }
+
+    .tweet-content {
+      font-size: 1.0625rem;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+      word-wrap: break-word;
+    }
+
+    .tweet-time {
+      color: #536471;
+      font-size: 0.9375rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e1e8ed;
+    }
+
+    .tweet-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #536471;
+    }
+
+    .action-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-size: 0.875rem;
+    }
+
+    .action-button:hover {
+      color: rgb(29, 155, 240);
+    }
+
+    .action-button.like:hover {
+      color: rgb(249, 24, 128);
+    }
+
+    .action-button.retweet:hover {
+      color: rgb(0, 186, 124);
+    }
+
+    .action-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    }
+
+    .count-wrapper {
+      display: inline-block;
+      position: relative;
+      height: 1.2em;
+      vertical-align: middle;
+    }
+
+    .count-wrapper span {
+      display: block;
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .count-wrapper span.entering {
+      animation: slideUp 0.3s ease-out forwards;
+    }
+
+    .count-wrapper span.leaving {
+      animation: slideOut 0.3s ease-out forwards;
+    }
+
+    #nova {
+      background: #000;
+      color: white;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 9999px;
+      margin-top: auto;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #nova:hover {
+      background: #272727;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    #nova:active {
+      transform: translateY(0);
+    }
+
+    noscript {
+      color: #f91880;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    footer {
+      padding-top: 2rem;
+      font-size: 0.875rem;
+      color: #536471;
+      text-align: center;
+    }
+
+    footer a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    // sinônimos de "repúdio"
+    const _inicios = [
+      "abomino",
+      "desprezo",
+      "rechaço",
+      "repudio",
+      "rejeito",
+      "desdenho",
+      "deprecio",
+      "condeno",
+      "critico",
+    ];
+
+    // advérbios que significam ímpeto, enérgicos
+    const _adverbios = [
+      "veementemente",
+      "fervorosamente",
+      "totalmente",
+      "energicamente",
+      "absolutamente",
+      "como um todo",
+      "inteiramente",
+      "integralmente",
+      "plenamente",
+      "completamente",
+      "muito",
+      "irrestritamente",
+      "definitivamente",
+      "terminantemente",
+      "categoricamente",
+      "indiscutivelmente",
+      "taxativamente",
+      "rigorosamente",
+      "incondicionalmente",
+      "permanentemente",
+    ];
+
+    // algo do momento que foi repudiado, como deveria ser
+    const _repudios = [
+      [
+        "os ataques à Democracia brasileira",
+        "a Democracia é estabelecida pela Constituição de 1988 e é, portanto, inegociável",
+      ],
+      [
+        "o fechamento do Congresso e Supremo Tribunal Federal (STF)",
+        "a República é composta, além do Executivo, pelo Legislativo e Judiciário",
+      ],
+      [
+        "a retirada dos diretos trabalhistas",
+        "devemos proteger os trabalhadores e garantir melhores condições de trabalho",
+      ],
+      [
+        "o fim do isolamento social",
+        "o isolamento é a única forma de conter o avanço do novo coronavírus",
+      ],
+      [
+        "as declarações do Presidente da República",
+        "reside uma imensa responsabilidade neste cargo, independente de quem o ocupa",
+      ],
+      [
+        "as falas proferidas pelo deputado",
+        "o respeito e a civilidade devem preponderar em qualquer embate de ideias",
+      ],
+      [
+        "a ação da polícia militar",
+        "a polícia deve estar do lado da população, em defesa pela vida",
+      ],
+      [
+        "o projeto de Lei aprovado hoje",
+        "o Legislativo deve trabalhar para responder aos interesses da população",
+      ],
+      [
+        "o atraso na tramitação da proposta",
+        "o processo deve seguir as normas da casa, como também ser ágil e efetivo",
+      ],
+      [
+        "o episódio de violência noticiado",
+        "a violência não é o caminho a ser tomado diante dos avanços civilizatórios",
+      ],
+      [
+        "a destruição do meio ambiente",
+        "precisamos conviver harmoniosamente com a natureza e respeitá-la",
+      ],
+      [
+        "a decisão política do juiz",
+        "o Judiciário deve se isentar da política como um poder independente",
+      ],
+      [
+        "o ódio e a maldade",
+        "o amor e a felicidade é o que faz nós, seres humanos, sermos cada vez mais humanos",
+      ],
+      [
+        "o autoritarismo e a intolerância",
+        "a Democracia e respeito às diferenças é consumada pela Constituição",
+      ],
+      [
+        "a censura de ideias",
+        "a liberdade de expressão, garantida pela Constituição, se opõe à opressão",
+      ],
+      [
+        "as ações de teor religioso do Executivo",
+        "o Estado deve permanecer laico e garantir a liberdade religiosa",
+      ],
+      [
+        "os alagamentos causados pela chuva",
+        "o plano diretor de uma cidade deve priorizar de escoamento de água em locais de grande concentração",
+      ],
+      [
+        "as palavras de baixo calão proferidas pelos membros do Executivo",
+        "a comunicação humana deve se dar de forma respeitosa, considerando as regras de convivência",
+      ],
+      [
+        "as tentativas de interferência na Polícia Federal",
+        "a instituição em questão necessita de autonomia para atingir seus objetivos constitucionais",
+      ],
+      [
+        "a tentativa de censura à imprensa",
+        "a liberdade de imprensa é um dos pilares da Democracia e deve ser respeitada",
+      ],
+      [
+        "a falta de transparência nas ações do governo",
+        "a transparência é fundamental para a confiança pública e a responsabilidade governamental",
+      ],
+      [
+        "o ataque às instituições democráticas",
+        "as instituições são essenciais para a manutenção do estado democrático de direito",
+      ],
+      [
+        "a tentativa de deslegitimar o processo eleitoral",
+        "o processo eleitoral garante a soberania popular e a legitimidade dos representantes eleitos",
+      ],
+    ];
+
+    // frases de efeito
+    const _efeitos = [
+      "as instituições estão e continuarão funcionando normalmente",
+      "não nos calarão",
+      "o poder emana do povo",
+      "seremos mais fortes diante destes ataques",
+      "o estado democrático de direito resistirá",
+      "trabalharemos incessantemente contra o obscurantismo",
+      "lutaremos pelos direitos do povo brasileiro",
+      "ditadura nunca mais",
+      "a civilização vencerá a barbárie",
+      "eles não passarão",
+      "é hora de salvar o povo brasileiro",
+      "não seremos responsáveis pela tragédia dessas ações",
+      "é preciso calma e responsabilidade nesse momento",
+      "é ultrajante que precisemos defender o óbvio",
+      "não deixaremos os interesses do mercado vencer",
+      "lutaremos incessantemente contra os retrocessos",
+      "o bom senso sempre prevalecerá",
+      "estaremos juntos pela Democracia",
+      "a democracia e os brasileiros que querem paz vencerão",
+      "que a Justiça seja célere para punir",
+      "só quer o silêncio quem não quer a democracia",
+      "não há dignidade na ausência de liberdade",
+      "a luta pela democracia é a luta por um futuro melhor",
+      "temos fé na justiça e na democracia",
+      "mais uma vez, a democracia se mostra forte",
+      "não podemos permitir que a barbárie vença",
+      "precisamos de união e solidariedade",
+      "urge a necessidade de bom senso e responsabilidade",
+    ];
+
+    const _pontuacoes = [".", "!"];
+
+    // Nomes fictícios para o usuário
+    const _nomes = [
+      "Deputado Democrático",
+      "Senadora da República",
+      "Vereador Progressista",
+      "Prefeita Municipal",
+      "Governador Estadual",
+      "Ministro da Justiça",
+      "Procurador Federal",
+      "Defensor Público",
+      "Presidente da Comissão",
+      "Presidente do Senado",
+      "Presidente da Câmara",
+    ];
+
+    // Handles fictícios
+    const _handles = [
+      "defensordemocrata",
+      "lutapelojusto",
+      "vozdobrasil",
+      "justicasocial",
+      "cidadaniaativa",
+      "republicaforte",
+      "constituicao88",
+      "poderparaopovo",
+      "brasildemocratico",
+      "camarabr",
+      "senadobr",
+      "governobrasil",
+      "justicabrasileira",
+    ];
+
+    class CacheAleatorio {
+      constructor(itens) {
+        this.itens = itens.slice();
+        this.usados = [];
+        this.tamanho = this.itens.length;
+
+        this.embaralhar(this.itens);
+      }
+
+      // https://stackoverflow.com/a/12646864
+      embaralhar(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      aleatorio() {
+        if (this.usados.length === this.tamanho) {
+          this.itens = this.usados;
           this.usados = [];
-          this.tamanho = this.itens.length;
 
           this.embaralhar(this.itens);
         }
 
-        // https://stackoverflow.com/a/12646864
-        embaralhar(array) {
-          for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-          }
+        const item = this.itens.shift();
+        this.usados.push(item);
+        return item;
+      }
+    }
+
+    const inicios = new CacheAleatorio(_inicios);
+    const adverbios = new CacheAleatorio(_adverbios);
+    const repudios = new CacheAleatorio(_repudios);
+    const efeitos = new CacheAleatorio(_efeitos);
+    const pontuacoes = new CacheAleatorio(_pontuacoes);
+    const nomes = new CacheAleatorio(_nomes);
+    const handles = new CacheAleatorio(_handles);
+
+    function primeiraLetraMaiuscula(str) {
+      return `${str[0].toUpperCase()}${str.substr(1)}`;
+    }
+
+    function formatarNumero(num) {
+      if (num >= 1000000) {
+        return (num / 1000000).toFixed(1).replace('.0', '') + 'M';
+      } else if (num >= 10000) {
+        return (num / 1000).toFixed(0) + 'K';
+      } else if (num >= 1000) {
+        return (num / 1000).toFixed(1).replace('.0', '') + 'K';
+      }
+      return num.toString();
+    }
+
+    function atualizarNumeroComAnimacao(selector, novoValor) {
+      const element = document.querySelector(selector);
+      const valorAtual = element.textContent;
+      const valorNovo = formatarNumero(novoValor);
+
+      // Se o valor não mudou, não animar
+      if (valorAtual === valorNovo) return;
+
+      // Adicionar classe de saída ao elemento atual
+      element.classList.add('leaving');
+
+      const wrapper = element.parentElement;
+      const novoSpan = document.createElement('span');
+      novoSpan.textContent = valorNovo;
+      novoSpan.className = selector.replace('.', '') + ' entering';
+
+      // Remover spans antigos após a animação
+      setTimeout(() => {
+        const oldSpans = wrapper.querySelectorAll('span.leaving');
+        oldSpans.forEach(span => span.remove());
+      }, 400);
+
+      wrapper.appendChild(novoSpan);
+    }
+
+    function formatarHora() {
+      const agora = new Date();
+      const horas = agora.getHours();
+      const minutos = agora.getMinutes().toString().padStart(2, '0');
+      const periodo = horas >= 12 ? 'PM' : 'AM';
+      const hora12 = horas % 12 || 12;
+
+      const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+      const dia = agora.getDate();
+      const mes = meses[agora.getMonth()];
+      const ano = agora.getFullYear();
+
+      return `${hora12}:${minutos} ${periodo} · ${dia} de ${mes} de ${ano}`;
+    }
+
+    function gerar() {
+      const elemento = document.querySelector("#tweet-text");
+
+      const inicio = primeiraLetraMaiuscula(inicios.aleatorio());
+      const adverbio = adverbios.aleatorio();
+
+      const dupla = repudios.aleatorio();
+      const repudiado = dupla[0];
+      const sonho = primeiraLetraMaiuscula(dupla[1]);
+
+      const efeito = primeiraLetraMaiuscula(efeitos.aleatorio());
+      const pontuacao = pontuacoes.aleatorio();
+
+      const frase = `${inicio} ${adverbio} ${repudiado}. ${sonho}. ${efeito}${pontuacao}`;
+      elemento.innerHTML = frase;
+
+      // Atualizar nome e handle
+      const nome = nomes.aleatorio();
+      const handle = handles.aleatorio();
+      document.querySelector(".user-name").innerHTML = `${nome} <span class="verified"></span>`;
+      document.querySelector(".user-handle").textContent = `@${handle}`;
+
+      // Atualizar inicial do avatar
+      document.querySelector(".avatar").textContent = nome.charAt(0);
+
+      // Atualizar timestamp
+      document.querySelector(".tweet-time").textContent = formatarHora();
+
+      // Gerar números aleatórios para interações (com chance de números maiores)
+      const multiplicador = Math.random() < 0.1 ? 1000 : 1; // 10% de chance de ser viral
+      const replies = Math.floor(Math.random() * 50 * multiplicador) + 1;
+      const retweets = Math.floor(Math.random() * 200 * multiplicador) + 10;
+      const likes = Math.floor(Math.random() * 500 * multiplicador) + 20;
+
+      // Atualizar números iniciais sem animação
+      document.querySelector(".replies-count").textContent = formatarNumero(replies);
+      document.querySelector(".retweets-count").textContent = formatarNumero(retweets);
+      document.querySelector(".likes-count").textContent = formatarNumero(likes);
+
+      // Retornar valores iniciais para uso no incremento
+      return { replies, retweets, likes };
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      let currentStats = gerar();
+      let incrementInterval;
+
+      function agendarProximoIncremento() {
+        // Base de 3 segundos + jitter aleatório entre -1000ms e +2000ms
+        const baseDelay = 3000;
+        const jitter = Math.floor(Math.random() * 3000) - 1000;
+        const proximoDelay = baseDelay + jitter;
+
+        incrementInterval = setTimeout(() => {
+          incrementarInteracoes();
+          agendarProximoIncremento();
+        }, proximoDelay);
+      }
+
+      function incrementarInteracoes() {
+        // Incrementar cada métrica com probabilidades diferentes
+        if (Math.random() < 0.3) { // 30% de chance de novo reply
+          currentStats.replies += 1;
+        }
+        if (Math.random() < 0.5) { // 50% de chance de novo retweet
+          currentStats.retweets += Math.floor(Math.random() * 3) + 1;
+        }
+        if (Math.random() < 0.7) { // 70% de chance de novas curtidas
+          currentStats.likes += Math.floor(Math.random() * 5) + 1;
         }
 
-        aleatorio() {
-          if (this.usados.length === this.tamanho) {
-            this.itens = this.usados;
-            this.usados = [];
+        // Atualizar os contadores na tela com animação
+        atualizarNumeroComAnimacao(".replies-count", currentStats.replies);
+        atualizarNumeroComAnimacao(".retweets-count", currentStats.retweets);
+        atualizarNumeroComAnimacao(".likes-count", currentStats.likes);
+      }
 
-            this.embaralhar(this.itens);
-          }
-
-          const item = this.itens.shift();
-          this.usados.push(item);
-          return item;
+      const botao = document.querySelector("#nova");
+      botao.addEventListener("click", function () {
+        currentStats = gerar();
+        // Limpar timeout anterior e criar novo
+        if (incrementInterval) {
+          clearTimeout(incrementInterval);
         }
-      }
-
-      const inicios = new CacheAleatorio(_inicios);
-      const adverbios = new CacheAleatorio(_adverbios);
-      const repudios = new CacheAleatorio(_repudios);
-      const efeitos = new CacheAleatorio(_efeitos);
-      const pontuacoes = new CacheAleatorio(_pontuacoes);
-
-      function primeiraLetraMaiuscula(str) {
-        return `${str[0].toUpperCase()}${str.substr(1)}`;
-      }
-
-      function gerar() {
-        const elemento = document.querySelector("#frase");
-
-        const inicio = primeiraLetraMaiuscula(inicios.aleatorio());
-        const adverbio = adverbios.aleatorio();
-
-        const dupla = repudios.aleatorio();
-        const repudiado = dupla[0];
-        const sonho = primeiraLetraMaiuscula(dupla[1]);
-
-        const efeito = primeiraLetraMaiuscula(efeitos.aleatorio());
-        const pontuacao = pontuacoes.aleatorio();
-
-        const frase = `${inicio} ${adverbio} ${repudiado}. ${sonho}. ${efeito}${pontuacao}`;
-        elemento.innerHTML = frase;
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        gerar();
-
-        const botao = document.querySelector("#nova");
-        botao.addEventListener("click", function () {
-          gerar();
-        });
+        agendarProximoIncremento();
       });
-    </script>
-  </head>
-  <body>
-    <main>
-      <header>
-        <h1>Gerador de Nota de Repúdio</h1>
-      </header>
-      <p id="frase">
-        <noscript
-          >Para salvar a democracia, você precisa habilitar o JavaScript em seu
-          browser.</noscript
-        >
-      </p>
-      <button id="nova" type="button">Novo repúdio</button>
-      <footer>
-        <a
-          rel="noopener noreferrer"
-          target="_blank"
-          href="http://twitter.com/danielsarsi"
-          >@danielsarsi</a
-        >
-        ajudando a democracia brasileira desde 2020
-      </footer>
-    </main>
-  </body>
+
+      // Iniciar incremento automático
+      agendarProximoIncremento();
+    });
+  </script>
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Gerador de Nota de Repúdio</h1>
+    </header>
+
+    <div class="tweet-card">
+      <div class="tweet-header">
+        <div class="avatar">D</div>
+        <div class="user-info">
+          <div class="user-name">Deputado Democrático <span class="verified"></span></div>
+          <div class="user-handle">@defensordemocrata</div>
+        </div>
+      </div>
+
+      <div class="tweet-content" id="tweet-text">
+        <noscript>Para salvar a democracia, você precisa habilitar o JavaScript em seu browser.</noscript>
+      </div>
+
+      <div class="tweet-time">3:45 PM · 27 de jul de 2025</div>
+
+      <div class="tweet-actions">
+        <button class="action-button">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z" />
+          </svg>
+          <div class="count-wrapper"><span class="replies-count">23</span></div>
+        </button>
+
+        <button class="action-button retweet">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z" />
+          </svg>
+          <div class="count-wrapper"><span class="retweets-count">87</span></div>
+        </button>
+
+        <button class="action-button like">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z" />
+          </svg>
+          <div class="count-wrapper"><span class="likes-count">234</span></div>
+        </button>
+
+        <button class="action-button">
+          <svg class="action-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.53 7.47l-5-5c-.293-.293-.768-.293-1.06 0l-5 5c-.294.293-.294.768 0 1.06s.767.294 1.06 0l3.72-3.72V15c0 .414.336.75.75.75s.75-.336.75-.75V4.81l3.72 3.72c.146.147.338.22.53.22s.384-.072.53-.22c.293-.293.293-.767 0-1.06z" />
+            <path
+              d="M19.708 21.944H4.292C3.028 21.944 2 20.916 2 19.652V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 .437.355.792.792.792h15.416c.437 0 .792-.355.792-.792V14c0-.414.336-.75.75-.75s.75.336.75.75v5.652c0 1.264-1.028 2.292-2.292 2.292z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <button id="nova" type="button">Novo repúdio</button>
+
+    <footer>
+      <a rel="noopener noreferrer" target="_blank" href="https://bsky.app/profile/sarsi.cc">@sarsi.cc</a>
+      ajudando a democracia brasileira desde 2020
+    </footer>
+  </main>
+</body>
+
 </html>

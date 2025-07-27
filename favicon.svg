@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Balão de conversa estilo Twitter -->
+  <path d="M28 6.5C28 4.57 26.43 3 24.5 3h-17C5.57 3 4 4.57 4 6.5v11C4 19.43 5.57 21 7.5 21H11v5.5c0 .276.224.5.5.5.102 0 .202-.032.29-.09l7.21-4.91h5.5c1.93 0 3.5-1.57 3.5-3.5v-11z" fill="#000"/>
+  
+  <!-- Símbolo de exclamação (representando repúdio) -->
+  <rect x="15" y="7" width="2" height="8" rx="1" fill="white"/>
+  <circle cx="16" cy="17" r="1.2" fill="white"/>
+  
+  <!-- Pequenos detalhes representando texto -->
+  <rect x="8" y="8" width="5" height="1.5" rx="0.75" fill="white" opacity="0.6"/>
+  <rect x="8" y="11" width="4" height="1.5" rx="0.75" fill="white" opacity="0.6"/>
+  <rect x="19" y="8" width="5" height="1.5" rx="0.75" fill="white" opacity="0.6"/>
+  <rect x="19" y="11" width="3" height="1.5" rx="0.75" fill="white" opacity="0.6"/>
+</svg>
