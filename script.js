@@ -9,6 +9,14 @@ const _inicios = [
   "deprecio",
   "condeno",
   "critico",
+  "execro",
+  "repugno",
+  "combato",
+  "reprovo",
+  "desaprovo",
+  "repreendo",
+  "recrimino",
+  "afasto"
 ];
 
 // advérbios que significam ímpeto, enérgicos
@@ -33,6 +41,24 @@ const _adverbios = [
   "rigorosamente",
   "incondicionalmente",
   "permanentemente",
+  "ardorosamente",
+  "vigorosamente",
+  "intensamente",
+  "fortemente",
+  "violentamente",
+  "vivamente",
+  "enfaticamente",
+  "incisivamente",
+  "firmemente",
+  "resolutamente",
+  "obstinadamente",
+  "inteiramente",
+  "cabalmente",
+  "radicalmente",
+  "profundamente",
+  "visceralmente",
+  "publicamente",
+  "abertamente",
 ];
 
 // algo do momento que foi repudiado, como deveria ser
@@ -71,7 +97,7 @@ const _repudios = [
   ],
   [
     "o atraso na tramitação da proposta",
-    "o processo deve seguir as normas da casa, como também ser ágil e efetivo",
+    "o processo deve seguir as normas da casa, bem como ser ágil e efetivo",
   ],
   [
     "o episódio de violência noticiado",
@@ -87,11 +113,11 @@ const _repudios = [
   ],
   [
     "o ódio e a maldade",
-    "o amor e a felicidade é o que faz nós, seres humanos, sermos cada vez mais humanos",
+    "o amor e a felicidade são o que faz nós, seres humanos, sermos cada vez mais humanos",
   ],
   [
     "o autoritarismo e a intolerância",
-    "a Democracia e respeito às diferenças é consumada pela Constituição",
+    "a Democracia e respeito às diferenças são consumados pela Constituição",
   ],
   [
     "a censura de ideias",
@@ -103,7 +129,7 @@ const _repudios = [
   ],
   [
     "os alagamentos causados pela chuva",
-    "o plano diretor de uma cidade deve priorizar de escoamento de água em locais de grande concentração",
+    "o plano diretor de uma cidade deve priorizar o escoamento de água em locais de grande concentração",
   ],
   [
     "as palavras de baixo calão proferidas pelos membros do Executivo",
