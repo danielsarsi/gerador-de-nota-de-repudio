@@ -246,15 +246,13 @@ function formatarHora() {
   const agora = new Date();
   const horas = agora.getHours();
   const minutos = agora.getMinutes().toString().padStart(2, '0');
-  const periodo = horas >= 12 ? 'PM' : 'AM';
-  const hora12 = horas % 12 || 12;
 
   const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   const dia = agora.getDate();
   const mes = meses[agora.getMonth()];
   const ano = agora.getFullYear();
 
-  return `${hora12}:${minutos} ${periodo} · ${dia} de ${mes} de ${ano}`;
+  return `${horas}:${minutos}· ${dia} de ${mes} de ${ano}`;
 }
 
 function gerar() {
