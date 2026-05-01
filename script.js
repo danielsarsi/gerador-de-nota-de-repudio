@@ -252,7 +252,7 @@ function formatarHora() {
   const mes = meses[agora.getMonth()];
   const ano = agora.getFullYear();
 
-  return `${horas}:${minutos}· ${dia} de ${mes} de ${ano}`;
+  return `${horas}:${minutos} · ${dia} de ${mes} de ${ano}`;
 }
 
 function gerar() {
