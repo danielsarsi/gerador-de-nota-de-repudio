@@ -42,63 +42,6 @@ h1 {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.tweet-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 1.25rem;
-  margin-right: 0.75rem;
-  flex-shrink: 0;
-}
-
-.user-info {
-  flex: 1;
-}
-
-.user-name {
-  font-weight: 700;
-  font-size: 0.9375rem;
-  line-height: 1.2;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.verified {
-  width: 20px;
-  height: 20px;
-  background: rgb(29, 155, 240);
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.verified::after {
-  content: "✓";
-  color: white;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-
-.user-handle {
-  color: #536471;
-  font-size: 0.9375rem;
-  font-weight: 400;
-}
-
 .tweet-content {
   font-size: 1.0625rem;
   line-height: 1.5;
@@ -222,10 +165,10 @@ h1 {
   transform: translateY(0);
 }
 
-noscript {
+.noscript {
   color: #f91880;
-  text-align: center;
-  padding: 1rem;
+  margin: 1rem 0;
+  font-size: 0.875rem;
 }
 
 footer {

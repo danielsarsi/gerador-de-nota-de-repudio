@@ -165,38 +165,6 @@ const _efeitos = [
 
 const _pontuacoes = [".", "!"];
 
-// Nomes fictícios para o usuário
-const _nomes = [
-  "Deputado Democrático",
-  "Senadora da República",
-  "Vereador Progressista",
-  "Prefeita Municipal",
-  "Governador Estadual",
-  "Ministro da Justiça",
-  "Procurador Federal",
-  "Defensor Público",
-  "Presidente da Comissão",
-  "Presidente do Senado",
-  "Presidente da Câmara",
-];
-
-// Handles fictícios
-const _handles = [
-  "defensordemocrata",
-  "lutapelojusto",
-  "vozdobrasil",
-  "justicasocial",
-  "cidadaniaativa",
-  "republicaforte",
-  "constituicao88",
-  "poderparaopovo",
-  "brasildemocratico",
-  "camarabr",
-  "senadobr",
-  "governobrasil",
-  "justicabrasileira",
-];
-
 class CacheAleatorio {
   constructor(itens) {
     this.itens = itens.slice();
@@ -233,8 +201,6 @@ const adverbios = new CacheAleatorio(_adverbios);
 const repudios = new CacheAleatorio(_repudios);
 const efeitos = new CacheAleatorio(_efeitos);
 const pontuacoes = new CacheAleatorio(_pontuacoes);
-const nomes = new CacheAleatorio(_nomes);
-const handles = new CacheAleatorio(_handles);
 
 function primeiraLetraMaiuscula(str) {
   return `${str[0].toUpperCase()}${str.substr(1)}`;
@@ -306,15 +272,6 @@ function gerar() {
 
   const frase = `${inicio} ${adverbio} ${repudiado}. ${sonho}. ${efeito}${pontuacao}`;
   elemento.innerHTML = frase;
-
-  // Atualizar nome e handle
-  const nome = nomes.aleatorio();
-  const handle = handles.aleatorio();
-  document.querySelector(".user-name").innerHTML = `${nome} <span class="verified"></span>`;
-  document.querySelector(".user-handle").textContent = `@${handle}`;
-
-  // Atualizar inicial do avatar
-  document.querySelector(".avatar").textContent = nome.charAt(0);
 
   // Atualizar timestamp
   document.querySelector(".tweet-time").textContent = formatarHora();
